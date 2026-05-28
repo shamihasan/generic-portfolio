@@ -1,4 +1,4 @@
-import { aboutContent } from '@/data/portfolio';
+import { aboutContent } from '@/data/portfolio.tsx'; // Updated import path
 
 export default function About() {
   const { heading, intro, expertise, trackRecord, certificationSummary, highlights } = aboutContent;

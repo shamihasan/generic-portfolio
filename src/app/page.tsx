@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen"; // Import the new LoadingScreen component
 import ScrollToTopButton from "@/components/ScrollToTopButton"; // Import the new ScrollToTopButton
 import SectionWrapper from "@/components/SectionWrapper"; // Import the new SectionWrapper
-import { navLinks } from "@/data/portfolio"; // Import navLinks for dynamic section IDs
+import { navLinks } from "@/data/portfolio.tsx"; // Updated import path
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);

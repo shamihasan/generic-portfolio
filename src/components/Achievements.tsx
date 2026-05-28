@@ -1,5 +1,5 @@
 import React from 'react';
-import { achievementsContent } from '@/data/portfolio';
+import { achievementsContent } from '@/data/portfolio.tsx'; // Updated import path
 
 export default function Achievements() {
   const { heading, items } = achievementsContent;
