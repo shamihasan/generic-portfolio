@@ -2,7 +2,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
-import Experience from "@/components/Experience"; // Import the new Experience component
+import Experience from "@/components/Experience";
+import Skills from "@/components/Skills"; // Import the new Skills component
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <Hero />
       <About />
       <Projects />
-      <Experience /> {/* Add the Experience component here */}
+      <Experience />
+      <Skills /> {/* Add the Skills component here */}
     </main>
   );
 }
