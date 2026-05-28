@@ -3,7 +3,8 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Projects from "@/components/Projects";
 import Experience from "@/components/Experience";
-import Skills from "@/components/Skills"; // Import the new Skills component
+import Skills from "@/components/Skills";
+import Achievements from "@/components/Achievements"; // Import the new Achievements component
 
 export default function Home() {
   return (
@@ -13,7 +14,8 @@ export default function Home() {
       <About />
       <Projects />
       <Experience />
-      <Skills /> {/* Add the Skills component here */}
+      <Skills />
+      <Achievements /> {/* Add the Achievements component here */}
     </main>
   );
 }
