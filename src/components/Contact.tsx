@@ -21,88 +21,86 @@ const EmailIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-6 text-purple-400">
-          Let's Build Something Amazing
-        </h2>
-        <p className="text-lg text-gray-300 mb-12">
-          I'm always open to new opportunities and collaborations. Whether you have a project in mind, a question, or just want to say hi, feel free to reach out!
-        </p>
+    <div className="max-w-4xl mx-auto text-center">
+      <h2 id="contact-heading" className="text-4xl font-bold mb-6 text-purple-400">
+        Let's Build Something Amazing
+      </h2>
+      <p className="text-lg text-gray-300 mb-12">
+        I'm always open to new opportunities and collaborations. Whether you have a project in mind, a question, or just want to connect, feel free to reach out!
+      </p>
 
-        <div className="relative p-[1px] rounded-lg overflow-hidden group
-                         transition-all duration-300 ease-in-out hover:scale-[1.02]
-                         focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-opacity-75" // Focus state for keyboard navigation
-             tabIndex={0} // Make div focusable for keyboard navigation
-             role="region" // Semantic role for a section of content
-             aria-labelledby="contact-heading"
-        >
-          {/* Animated gradient border */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="relative p-[1px] rounded-lg overflow-hidden group
+                       transition-all duration-300 ease-in-out hover:scale-[1.02]
+                       focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-opacity-75" // Focus state for keyboard navigation
+           tabIndex={0} // Make div focusable for keyboard navigation
+           role="region" // Semantic role for a section of content
+           aria-labelledby="contact-heading"
+      >
+        {/* Animated gradient border */}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
 
-          {/* Glassmorphism card content */}
-          <div className="relative bg-gray-900/80 backdrop-blur-md rounded-lg p-8 border border-white/20 group-hover:border-transparent flex flex-col items-center">
-            <p className="text-xl font-semibold text-white mb-4">
-              Hyderabad, India
-            </p>
+        {/* Glassmorphism card content */}
+        <div className="relative bg-gray-900/80 backdrop-blur-md rounded-lg p-8 border border-white/20 group-hover:border-transparent flex flex-col items-center">
+          <p className="text-xl font-semibold text-white mb-4">
+            Hyderabad, India
+          </p>
 
-            <div className="flex space-x-6 mb-8">
-              <a
-                href="https://github.com/yourusername" // Replace with your GitHub URL
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
-                aria-label="GitHub Profile"
-                title="GitHub Profile"
-              >
-                <GitHubIcon className="w-8 h-8" />
-              </a>
-              <a
-                href="https://linkedin.com/in/yourusername" // Replace with your LinkedIn URL
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
-                aria-label="LinkedIn Profile"
-                title="LinkedIn Profile"
-              >
-                <LinkedInIcon className="w-8 h-8" />
-              </a>
-              <a
-                href="mailto:your.email@example.com" // Replace with your Email Address
-                className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
-                aria-label="Email Me"
-                title="Email Me"
-              >
-                <EmailIcon className="w-8 h-8" />
-              </a>
-            </div>
+          <div className="flex space-x-6 mb-8">
+            <a
+              href="https://github.com/yourusername" // Replace with your GitHub URL
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
+              aria-label="GitHub Profile"
+              title="GitHub Profile"
+            >
+              <GitHubIcon className="w-8 h-8" />
+            </a>
+            <a
+              href="https://linkedin.com/in/yourusername" // Replace with your LinkedIn URL
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
+              aria-label="LinkedIn Profile"
+              title="LinkedIn Profile"
+            >
+              <LinkedInIcon className="w-8 h-8" />
+            </a>
+            <a
+              href="mailto:your.email@example.com" // Replace with your Email Address
+              className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
+              aria-label="Email Me"
+              title="Email Me"
+            >
+              <EmailIcon className="w-8 h-8" />
+            </a>
+          </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="/resume.pdf" // Replace with the actual path to your resume PDF
-                download
-                className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-full shadow-lg
-                           hover:bg-purple-700 transition-all duration-300 ease-in-out
-                           transform hover:-translate-y-1 hover:scale-105
-                           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
-                aria-label="Download Resume"
-              >
-                Download Resume
-              </a>
-              <a
-                href="mailto:your.email@example.com" // Replace with your Email Address
-                className="px-8 py-3 bg-transparent border border-purple-500 text-purple-300 font-semibold rounded-full shadow-lg
-                           hover:bg-purple-500 hover:text-white transition-all duration-300 ease-in-out
-                           transform hover:-translate-y-1 hover:scale-105
-                           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
-                aria-label="Get In Touch via Email"
-              >
-                Get In Touch
-              </a>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="/resume/Shubham-Mehrotra-Resume.pdf" // Replace with the actual path to your resume PDF
+              download
+              className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-full shadow-lg
+                         hover:bg-purple-700 transition-all duration-300 ease-in-out
+                         transform hover:-translate-y-1 hover:scale-105 btn-glow
+                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
+              aria-label="Download Shubham Mehrotra's Resume"
+            >
+              Download Resume
+            </a>
+            <a
+              href="mailto:your.email@example.com" // Replace with your Email Address
+              className="px-8 py-3 bg-transparent border border-purple-500 text-purple-300 font-semibold rounded-full shadow-lg
+                         hover:bg-purple-500 hover:text-white transition-all duration-300 ease-in-out
+                         transform hover:-translate-y-1 hover:scale-105
+                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
+              aria-label="Get In Touch via Email"
+            >
+              Get In Touch
+            </a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
