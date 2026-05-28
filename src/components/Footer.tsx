@@ -1,0 +1,20 @@
+import React from 'react';
+
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="bg-gray-900 text-gray-400 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto text-center">
+        {/* Subtle top border glow */}
+        <div className="border-t border-purple-500/30 pt-8 mb-4"></div>
+        <p className="text-sm mb-2">
+          &copy; {currentYear} Your Name. All rights reserved.
+        </p>
+        <p className="text-xs">
+          Built with <span className="text-purple-400">Next.js</span> &amp; <span className="text-purple-400">Tailwind CSS</span>
+        </p>
+      </div>
+    </footer>
+  );
+}
