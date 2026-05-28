@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen"; // Import the new LoadingScreen component
 import ScrollToTopButton from "@/components/ScrollToTopButton"; // Import the new ScrollToTopButton
 import SectionWrapper from "@/components/SectionWrapper"; // Import the new SectionWrapper
+import { navLinks } from "@/data/portfolio"; // Import navLinks for dynamic section IDs
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,8 +40,8 @@ export default function Home() {
       });
     }, observerOptions);
 
-    // Observe all sections
-    const sections = document.querySelectorAll("section[id]");
+    // Observe all sections dynamically based on navLinks
+    const sections = navLinks.map(link => document.getElementById(link.id)).filter(Boolean) as Element[];
     sections.forEach((section) => observer.observe(section));
 
     return () => {
@@ -56,6 +57,7 @@ export default function Home() {
   return (
     <main className="relative">
       <Navbar activeSection={activeSection} />
+      {/* Render sections dynamically based on navLinks or explicitly if content is complex */}
       <SectionWrapper id="hero" className="min-h-screen flex items-center justify-center">
         <Hero />
       </SectionWrapper>
