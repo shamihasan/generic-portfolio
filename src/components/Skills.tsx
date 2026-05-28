@@ -76,7 +76,11 @@ export default function Skills() {
             <div
               key={index}
               className="relative p-[1px] rounded-lg overflow-hidden group
-                         transition-all duration-300 ease-in-out hover:scale-[1.02]" // Subtle float on hover
+                         transition-all duration-300 ease-in-out hover:scale-[1.02]
+                         focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-opacity-75" // Focus state for keyboard navigation
+              tabIndex={0} // Make div focusable for keyboard navigation
+              role="listitem" // Semantic role for list items
+              aria-labelledby={`skill-category-${index}`}
             >
               {/* Animated gradient border */}
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -84,10 +88,10 @@ export default function Skills() {
               {/* Glassmorphism card content */}
               <div className="relative bg-gray-900/80 backdrop-blur-md rounded-lg p-6 border border-white/20 group-hover:border-transparent h-full flex flex-col">
                 <div className="flex items-center mb-4">
-                  <span className="text-3xl mr-3">{category.icon}</span>
-                  <h3 className="font-bold text-2xl text-purple-300">{category.name}</h3>
+                  <span className="text-3xl mr-3" aria-hidden="true">{category.icon}</span>
+                  <h3 id={`skill-category-${index}`} className="font-bold text-2xl text-purple-300">{category.name}</h3>
                 </div>
-                <div className="flex flex-wrap gap-2 mt-auto"> {/* mt-auto pushes skills to bottom if card height varies */}
+                <div className="flex flex-wrap gap-2 mt-auto" aria-label={`${category.name} skills`}> {/* mt-auto pushes skills to bottom if card height varies */}
                   {category.skills.map((skill, skillIndex) => (
                     <span
                       key={skillIndex}

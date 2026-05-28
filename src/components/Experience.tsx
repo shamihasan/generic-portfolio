@@ -57,6 +57,7 @@ export default function Experience() {
           <div
             className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-purple-500 to-pink-500 rounded-full shadow-lg"
             style={{ boxShadow: '0 0 15px rgba(168, 85, 247, 0.7), 0 0 30px rgba(236, 72, 153, 0.5)' }}
+            aria-hidden="true" // Decorative element
           ></div>
 
           {experienceData.map((item, index) => (
@@ -70,16 +71,21 @@ export default function Experience() {
                   bg-white/10 backdrop-blur-md border border-white/20
                   hover:scale-[1.02] hover:border-purple-400 hover:shadow-purple-500/50
                   md:text-right mb-4 md:mb-0
-                ">
-                  <h3 className="mb-2 font-bold text-xl text-purple-300">{item.company}</h3>
-                  <p className="text-lg font-semibold text-white mb-1">{item.role}</p>
+                  focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-opacity-75" // Focus state for keyboard navigation
+                  tabIndex={0} // Make div focusable for keyboard navigation
+                  role="article" // Semantic role for experience entry
+                  aria-labelledby={`experience-company-${index}`}
+                  aria-describedby={`experience-role-${index}`}
+                >
+                  <h3 id={`experience-company-${index}`} className="mb-2 font-bold text-xl text-purple-300">{item.company}</h3>
+                  <p id={`experience-role-${index}`} className="text-lg font-semibold text-white mb-1">{item.role}</p>
                   <p className="text-sm text-gray-300 mb-4">{item.duration}</p>
-                  <ul className="list-disc list-inside text-gray-200 mb-4">
+                  <ul className="list-disc list-inside text-gray-200 mb-4" aria-label="Achievements">
                     {item.achievements.map((achievement, idx) => (
                       <li key={idx} className="mb-1">{achievement}</li>
                     ))}
                   </ul>
-                  <div className="flex flex-wrap gap-2 md:justify-end">
+                  <div className="flex flex-wrap gap-2 md:justify-end" aria-label="Technologies used">
                     {item.techStack.map((tech, idx) => (
                       <span
                         key={idx}
@@ -93,7 +99,7 @@ export default function Experience() {
               )}
 
               {/* Timeline dot */}
-              <div className="md:col-start-2 md:col-end-3 z-20 flex items-center bg-purple-500 shadow-xl w-8 h-8 rounded-full flex-shrink-0">
+              <div className="md:col-start-2 md:col-end-3 z-20 flex items-center bg-purple-500 shadow-xl w-8 h-8 rounded-full flex-shrink-0" aria-hidden="true">
                 <h1 className="mx-auto font-semibold text-lg text-white">{index + 1}</h1>
               </div>
 
@@ -103,16 +109,21 @@ export default function Experience() {
                   bg-white/10 backdrop-blur-md border border-white/20
                   hover:scale-[1.02] hover:border-purple-400 hover:shadow-purple-500/50
                   md:text-left mt-4 md:mt-0
-                ">
-                  <h3 className="mb-2 font-bold text-xl text-purple-300">{item.company}</h3>
-                  <p className="text-lg font-semibold text-white mb-1">{item.role}</p>
+                  focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-opacity-75" // Focus state for keyboard navigation
+                  tabIndex={0} // Make div focusable for keyboard navigation
+                  role="article" // Semantic role for experience entry
+                  aria-labelledby={`experience-company-${index}`}
+                  aria-describedby={`experience-role-${index}`}
+                >
+                  <h3 id={`experience-company-${index}`} className="mb-2 font-bold text-xl text-purple-300">{item.company}</h3>
+                  <p id={`experience-role-${index}`} className="text-lg font-semibold text-white mb-1">{item.role}</p>
                   <p className="text-sm text-gray-300 mb-4">{item.duration}</p>
-                  <ul className="list-disc list-inside text-gray-200 mb-4">
+                  <ul className="list-disc list-inside text-gray-200 mb-4" aria-label="Achievements">
                     {item.achievements.map((achievement, idx) => (
                       <li key={idx} className="mb-1">{achievement}</li>
                     ))}
                   </ul>
-                  <div className="flex flex-wrap gap-2 md:justify-start">
+                  <div className="flex flex-wrap gap-2 md:justify-start" aria-label="Technologies used">
                     {item.techStack.map((tech, idx) => (
                       <span
                         key={idx}
