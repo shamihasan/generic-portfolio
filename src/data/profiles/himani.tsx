@@ -46,7 +46,7 @@ export const himaniProfile: Profile = {
   socialLinks: [
     {
       name: "LinkedIn",
-      url: "#",
+      url: "https://www.linkedin.com/in/himani-mehrotra-a436a7256/",
       icon: <LinkedInIcon />,
       ariaLabel: "LinkedIn profile",
     },
