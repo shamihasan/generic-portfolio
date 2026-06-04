@@ -17,12 +17,23 @@ const profileMap: { [key: string]: Profile } = {
   // new_profile: newProfile,
 };
 
+function getProfileKey(): string {
+  if (typeof window === 'undefined') {
+    return 'shubham';
+  }
+
+  const href = window.location.href;
+  const profileKey = href.match(/([a-zA-Z0-9]+)-portfolio/)?.[1] ?? '';
+
+  return profileMap[profileKey] ? profileKey : 'shubham';
+}
+
 // Determine which profile to load based on the NEXT_PUBLIC_PORTFOLIO environment variable.
 // Defaults to 'shubhamProfile' if the environment variable is not set or is invalid.
-const selectedProfileKey = process.env.NEXT_PUBLIC_PORTFOLIO?.toLowerCase();
+const selectedProfileKey = getProfileKey();
 
-export const profile: Profile =
-  profileMap[selectedProfileKey as keyof typeof profileMap] || shubhamProfile;
+export const profile =
+  profileMap[selectedProfileKey] || shubhamProfile;
 
 const loadedProfileName = Object.keys(profileMap).find(key => profileMap[key] === profile);
-console.log(`Loading portfolio for: ${loadedProfileName || 'shubham (default)'}`);
+console.log(`Loading portfolio for: ${loadedProfileName}`);
