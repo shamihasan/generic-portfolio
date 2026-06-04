@@ -91,6 +91,7 @@ export interface SkillCategory {
  */
 export interface SkillsSection {
   heading: string;
+  description?: string; // Optional description for the skills section
   categories: SkillCategory[];
 }
 

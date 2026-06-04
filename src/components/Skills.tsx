@@ -14,9 +14,9 @@ export default function Skills() {
       <h2 className="text-4xl font-bold text-center mb-6 text-purple-400">
         {skillsSection.heading}
       </h2>
-      {skillsSection.description && (
+      {skillsSection?.description && (
         <p className="text-center text-lg text-gray-300 mb-12 max-w-3xl mx-auto">
-          {skillsSection.description}
+          {skillsSection?.description}
         </p>
       )}
 
