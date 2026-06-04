@@ -17,7 +17,6 @@ const geistMono = Geist_Mono({
 
 // Make metadata an async function to use await with headers()
 export async function generateMetadata(): Promise<Metadata> {
-  console.log('called123');
   // --- Dynamic SEO Data Extraction ---
   // Get the full URL from the request headers on the server
   const headersList = await headers();
@@ -39,16 +38,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
   // Base URL for the portfolio (e.g., https://yourportfolio.com)
   const baseUrl = `${protocol}://${host}`;
+  // Add the specific image from public/dp/himani.png
+  const currentProfileDpPath = `${baseUrl}/dp/${currentProfileKey}.png`;
 
-  // Helper to check if a URL is absolute
-  const isAbsoluteUrl = (url: string) => url.startsWith('http://') || url.startsWith('https://');
+  console.log({ currentProfileDpPath });
 
-  // Determine the primary image for Open Graph/Twitter
-  // Prioritize profile picture, then hero image, then a generic fallback in public folder
-  const primaryImageSource = currentProfile.personalInfo.profilePicture || currentProfile.hero?.image || "/og-image.jpg";
-  const absoluteImageUrl = isAbsoluteUrl(primaryImageSource)
-    ? primaryImageSource
-    : `${baseUrl}${primaryImageSource.startsWith('/') ? '' : '/'}${primaryImageSource}`;
+  // Combine all images for Open Graph and Twitter
+  const allMetaImages = [
+    {
+      url: currentProfileDpPath,
+      width: 1200, // Standard OG image width
+      height: 630, // Standard OG image height
+      alt: `${personalName} Portfolio`,
+    },
+  ];
 
   // Construct keywords
   const baseKeywords = [
@@ -89,14 +92,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: personalDescription,
       url: fullUrl, // Use the full URL for the specific page
       siteName: `${personalName} Portfolio`,
-      images: [
-        {
-          url: absoluteImageUrl,
-          width: 1200, // Standard OG image width
-          height: 630, // Standard OG image height
-          alt: `${personalName} Portfolio`,
-        },
-      ],
+      images: allMetaImages, // Use the combined array of images
       locale: "en_US",
       type: "website",
     },
@@ -105,7 +101,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: `${personalName} - ${personalTitle} Portfolio`,
       description: personalDescription,
       creator: twitterHandle,
-      images: [absoluteImageUrl], // Use the same primary image for Twitter
+      images: allMetaImages.map(img => img.url), // Twitter images can be an array of URLs
     },
     // Optional: Add favicon links if not already handled by Next.js default
     // icons: {
