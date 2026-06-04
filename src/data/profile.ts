@@ -24,8 +24,5 @@ const selectedProfileKey = process.env.NEXT_PUBLIC_PORTFOLIO?.toLowerCase();
 export const profile: Profile =
   profileMap[selectedProfileKey as keyof typeof profileMap] || shubhamProfile;
 
-// Optional: Log which profile is being used for debugging purposes
-if (process.env.NODE_ENV === 'development') {
-  const loadedProfileName = Object.keys(profileMap).find(key => profileMap[key] === profile);
-  console.log(`Loading portfolio for: ${loadedProfileName || 'shubham (default)'}`);
-}
+const loadedProfileName = Object.keys(profileMap).find(key => profileMap[key] === profile);
+console.log(`Loading portfolio for: ${loadedProfileName || 'shubham (default)'}`);

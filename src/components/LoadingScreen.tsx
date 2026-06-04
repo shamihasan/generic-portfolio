@@ -1,4 +1,5 @@
 import React from 'react';
+import { profile } from '@/data/profile';
 
 export default function LoadingScreen() {
   return (
@@ -10,7 +11,7 @@ export default function LoadingScreen() {
           {/* Inner pulsing dot */}
           <div className="absolute inset-0 m-auto w-8 h-8 rounded-full bg-pink-500 animate-pulse-fast"></div>
         </div>
-        <p className="mt-8 text-xl font-semibold tracking-wide text-purple-300">Loading Portfolio...</p>
+        <p className="mt-8 text-xl font-semibold tracking-wide text-purple-300">Loading {profile.personalInfo?.name}'s Portfolio...</p>
       </div>
     </div>
   );
