@@ -61,7 +61,7 @@ export default function Projects() {
               </ul>
             )}
             <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/10" aria-label="Technologies used">
-              {project.techStack.map((tech, tIndex) => (
+              {project?.techStack?.map((tech, tIndex) => (
                 <span
                   key={tIndex}
                   className="bg-purple-600/30 text-purple-200 text-xs font-medium px-2.5 py-0.5 rounded-full"
