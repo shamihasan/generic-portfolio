@@ -1,13 +1,18 @@
-import { profile } from '@/data/profile'; // Import profile data
+"use client"; // Ensure this is a client component if it uses hooks
+
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
+import React from 'react'; // Required for React.ReactNode types
 
 export default function Hero() {
+  const { profile } = useProfile(); // Get profile from context
+
+  if (!profile || !profile.personalInfo || !profile.hero) {
+    return null; // Or a fallback UI if essential profile data is missing or profile is not loaded
+  }
+
   const personalInfo = profile.personalInfo;
   const heroSection = profile.hero;
   const socialLinks = profile.socialLinks || [];
-
-  if (!personalInfo || !heroSection) {
-    return null; // Or a fallback UI if essential profile data is missing
-  }
 
   const { name, title, description, resumeLink } = personalInfo;
   const { heading, subheading, callToAction, techStackBadges, resumeButtonText } = heroSection; // Destructure new fields

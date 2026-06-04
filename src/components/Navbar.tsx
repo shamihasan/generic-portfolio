@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { profile } from '../data/profile';
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
 import React from 'react'; // Required for React.ReactNode types
+import { NavLink } from '@/types/profile'; // Import NavLink type
 
 // SVG Icons for social links (extracted from original Navbar.tsx for reusability within this component)
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -19,11 +20,13 @@ const LinkedInIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 interface NavbarProps {
+  navLinks: NavLink[]; // navLinks are still passed as a prop from page.tsx
   activeSection: string;
-  setActiveSection: (sectionId: string) => void; // Added prop for updating active section
+  setActiveSection: (sectionId: string) => void;
 }
 
-export default function Navbar({ activeSection, setActiveSection }: NavbarProps) {
+export default function Navbar({ navLinks, activeSection, setActiveSection }: NavbarProps) {
+  const { profile } = useProfile(); // Get profile from context
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -39,9 +42,11 @@ export default function Navbar({ activeSection, setActiveSection }: NavbarProps)
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fallback for personalInfo if not provided
-  const personalInfo = profile.personalInfo || { name: "Portfolio", title: "", tagline: "", description: "" };
-  const navLinks = profile.navLinks || [];
+  if (!profile) {
+    return null; // Don't render navbar if profile is not loaded
+  }
+
+  const personalInfo = profile.personalInfo;
   const socialLinks = profile.socialLinks || [];
 
   // Generate initials for the logo, fallback to "P" if name is not available

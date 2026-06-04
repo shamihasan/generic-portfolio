@@ -1,15 +1,7 @@
 import { Profile } from '../types/profile';
-import { shubhamProfile } from './profiles/shubham'; // Corrected to .tsx
-import { himaniProfile } from './profiles/himani';   // Corrected to .tsx
+import { shubhamProfile } from './profiles/shubham';
+import { himaniProfile } from './profiles/himani';
 
-/**
- * A map of available profiles, keyed by their identifier.
- * To add a new profile:
- * 1. Create a new file in `src/data/profiles/` (e.g., `src/data/profiles/new_profile.tsx`).
- * 2. Define and export a `Profile` object in that file (e.g., `export const newProfile: Profile = { ... };`).
- * 3. Import the new profile here.
- * 4. Add it to the `profileMap` below with a unique key.
- */
 const profileMap: { [key: string]: Profile } = {
   shubham: shubhamProfile,
   himani: himaniProfile,
@@ -17,23 +9,33 @@ const profileMap: { [key: string]: Profile } = {
   // new_profile: newProfile,
 };
 
-function getProfileKey(): string {
-  if (typeof window === 'undefined') {
-    return 'shubham';
+/**
+ * Determines the profile key based on the provided URL.
+ * Defaults to 'shubham' if no key is found or the key is invalid.
+ * This function expects a URL to be explicitly provided.
+ * @param url The URL string to parse for the profile key.
+ * @returns The determined profile key (e.g., 'shubham', 'himani').
+ */
+export function getProfileKeyFromUrl(url?: string): string {
+  if (url) {
+    // Regex to match 'profileKey-portfolio' in the URL path
+    const match = url.match(/([a-zA-Z0-9]+)-portfolio/);
+    const profileKey = match?.[1] ?? '';
+    if (profileMap[profileKey]) {
+      return profileKey;
+    }
   }
 
-  const href = window.location.href;
-  const profileKey = href.match(/([a-zA-Z0-9]+)-portfolio/)?.[1] ?? '';
-
-  return profileMap[profileKey] ? profileKey : 'shubham';
+  // Default to 'shubham' if no key found or invalid
+  return 'shubham';
 }
 
-// Determine which profile to load based on the NEXT_PUBLIC_PORTFOLIO environment variable.
-// Defaults to 'shubhamProfile' if the environment variable is not set or is invalid.
-const selectedProfileKey = getProfileKey();
-
-export const profile =
-  profileMap[selectedProfileKey] || shubhamProfile;
-
-const loadedProfileName = Object.keys(profileMap).find(key => profileMap[key] === profile);
-console.log(`Loading portfolio for: ${loadedProfileName}`);
+/**
+ * Retrieves the Profile object based on a given profile key.
+ * Defaults to shubhamProfile if the key is not found.
+ * @param key The profile key (e.g., 'shubham', 'himani').
+ * @returns The Profile object.
+ */
+export function getProfile(key: string): Profile {
+  return profileMap[key] || shubhamProfile;
+}

@@ -1,8 +1,16 @@
+"use client"; // Ensure this is a client component if it uses hooks
+
 import React from 'react';
-import { profile } from '../data/profile'; // Import profile data
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
 
 export default function Footer() {
+  const { profile } = useProfile(); // Get profile from context
   const currentYear = new Date().getFullYear();
+
+  if (!profile) {
+    return null; // Don't render footer if profile is not loaded
+  }
+
   const personalInfo = profile.personalInfo; // Get personal info from profile
 
   return (

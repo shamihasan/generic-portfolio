@@ -1,13 +1,17 @@
+"use client"; // Ensure this is a client component if it uses hooks
+
 import React from 'react';
-import { profile } from '../data/profile';
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
 import { ExperienceItem } from '../types/profile'; // Import the interface from types
 
 export default function Experience() {
-  const experienceSection = profile.experience;
+  const { profile } = useProfile(); // Get profile from context
 
-  if (!experienceSection || !experienceSection.items || experienceSection.items.length === 0) {
-    return null; // Hide section if no experience data is available
+  if (!profile || !profile.experience || profile.experience.items.length === 0) {
+    return null; // Hide section if no experience data is available or profile is not loaded
   }
+
+  const experienceSection = profile.experience;
 
   return (
     <div className="max-w-7xl mx-auto">

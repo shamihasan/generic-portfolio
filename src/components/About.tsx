@@ -1,11 +1,16 @@
-import { profile } from '@/data/profile'; // Updated import path to profile
+"use client"; // Ensure this is a client component if it uses hooks
+
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
+import React from 'react'; // Required for React.ReactNode types
 
 export default function About() {
-  const aboutData = profile.about;
+  const { profile } = useProfile(); // Get profile from context
 
-  if (!aboutData) {
-    return null; // Hide section if no about data is available in the profile
+  if (!profile || !profile.about) {
+    return null; // Hide section if no about data is available in the profile or profile is not loaded
   }
+
+  const aboutData = profile.about;
 
   const { heading, intro, expertise, trackRecord, certificationSummary, highlights } = aboutData;
 

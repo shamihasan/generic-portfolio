@@ -1,13 +1,17 @@
+"use client"; // Ensure this is a client component if it uses hooks
+
 import React from 'react';
-import { profile } from '../data/profile'; // Import profile data
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
 import { AchievementItem } from '../types/profile'; // Import the interface from types
 
 export default function Achievements() {
-  const achievementsSection = profile.achievements;
+  const { profile } = useProfile(); // Get profile from context
 
-  if (!achievementsSection || !achievementsSection.items || achievementsSection.items.length === 0) {
-    return null; // Hide section if no achievements data is available
+  if (!profile || !profile.achievements || profile.achievements.items.length === 0) {
+    return null; // Hide section if no achievements data is available or profile is not loaded
   }
+
+  const achievementsSection = profile.achievements;
 
   return (
     <div className="max-w-7xl mx-auto">

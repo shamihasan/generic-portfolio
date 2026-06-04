@@ -1,6 +1,8 @@
 "use client"; // This component uses client-side features like useState and useEffect
 
 import { useState, useEffect } from "react";
+import { NavLink } from "@/types/profile"; // Import NavLink type
+import { ProfileProvider, useProfile } from "@/context/ProfileContext"; // Import ProfileProvider and useProfile hook
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -13,22 +15,14 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen"; // Import the new LoadingScreen component
 import ScrollToTopButton from "@/components/ScrollToTopButton"; // Import the new ScrollToTopButton
 import SectionWrapper from "@/components/SectionWrapper"; // Import the new SectionWrapper
-import { profile } from "@/data/profile"; // Updated import path
 
-export default function Home() {
-  const navLinks = profile.navLinks;
-  if (!navLinks) {
-    return null;
-  }
-
-  const [isLoading, setIsLoading] = useState(true);
+// HomeContent is a client component that consumes the ProfileContext
+function HomeContent() {
+  const { profile: currentProfile, isLoading } = useProfile(); // Use the custom hook
   const [activeSection, setActiveSection] = useState("hero"); // State for active section
 
   useEffect(() => {
-    // Simulate a loading delay
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500); // Adjust loading time as needed
+    if (!currentProfile) return; // Don't set up observer if profile isn't loaded yet
 
     // Intersection Observer for active section highlighting
     const observerOptions = {
@@ -46,47 +40,56 @@ export default function Home() {
     }, observerOptions);
 
     // Observe all sections dynamically based on navLinks
-    // Ensure that the elements exist before observing
-    const sections = navLinks.map(link => document.getElementById(link.id)).filter(Boolean) as Element[];
+    const sections = currentProfile.navLinks?.map(link => document.getElementById(link.id)).filter(Boolean) as Element[];
     sections.forEach((section) => observer.observe(section));
 
     return () => {
-      clearTimeout(timer);
       sections.forEach((section) => observer.unobserve(section));
     };
-  }, [navLinks]); // Added navLinks to dependency array to re-run if links change
+  }, [currentProfile]); // Re-run observer setup if currentProfile changes
 
-  if (isLoading) {
+  if (isLoading || !currentProfile) {
     return <LoadingScreen />;
   }
 
+  const navLinks: NavLink[] = currentProfile.navLinks || [];
+
   return (
     <main className="relative">
-      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} /> {/* Pass setActiveSection */}
+      <Navbar navLinks={navLinks} activeSection={activeSection} setActiveSection={setActiveSection} /> {/* Pass navLinks and setActiveSection */}
       {/* Render sections dynamically based on navLinks or explicitly if content is complex */}
       <SectionWrapper id="hero" className="pt-16 min-h-screen flex items-center justify-center">
-        <Hero />
+        <Hero /> {/* No need to pass profile prop */}
       </SectionWrapper>
       <SectionWrapper id="about">
-        <About />
+        <About /> {/* No need to pass profile prop */}
       </SectionWrapper>
       <SectionWrapper id="projects">
-        <Projects />
+        <Projects /> {/* No need to pass profile prop */}
       </SectionWrapper>
       <SectionWrapper id="experience">
-        <Experience />
+        <Experience /> {/* No need to pass profile prop */}
       </SectionWrapper>
       <SectionWrapper id="skills">
-        <Skills />
+        <Skills /> {/* No need to pass profile prop */}
       </SectionWrapper>
       <SectionWrapper id="achievements">
-        <Achievements />
+        <Achievements /> {/* No need to pass profile prop */}
       </SectionWrapper>
       <SectionWrapper id="contact">
-        <Contact />
+        <Contact /> {/* No need to pass profile prop */}
       </SectionWrapper>
-      <Footer />
+      <Footer /> {/* No need to pass profile prop */}
       <ScrollToTopButton />
     </main>
+  );
+}
+
+// The main Home component wraps HomeContent with ProfileProvider
+export default function Home() {
+  return (
+    <ProfileProvider>
+      <HomeContent />
+    </ProfileProvider>
   );
 }

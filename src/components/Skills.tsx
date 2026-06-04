@@ -1,13 +1,17 @@
+"use client"; // Ensure this is a client component if it uses hooks
+
 import React from 'react';
-import { profile } from '../data/profile';
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
 import { SkillCategory } from '../types/profile'; // Import the interface from types
 
 export default function Skills() {
-  const skillsSection = profile.skills;
+  const { profile } = useProfile(); // Get profile from context
 
-  if (!skillsSection || !skillsSection.categories || skillsSection.categories.length === 0) {
-    return null; // Hide section if no skills data is available
+  if (!profile || !profile.skills || profile.skills.categories.length === 0) {
+    return null; // Hide section if no skills data is available or profile is not loaded
   }
+
+  const skillsSection = profile.skills;
 
   return (
     <div className="max-w-7xl mx-auto">

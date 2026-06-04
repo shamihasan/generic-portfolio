@@ -1,5 +1,7 @@
+"use client"; // Ensure this is a client component if it uses hooks
+
 import React from "react";
-import { profile } from '../data/profile'; // Import profile data
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
 import { ProjectItem } from '../types/profile'; // Import the interface from types
 
 // SVG Icons for links
@@ -11,16 +13,18 @@ const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 const ExternalLinkIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 0 002 2h10a2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
   </svg>
 );
 
 export default function Projects() {
-  const projectsSection = profile.projects;
+  const { profile } = useProfile(); // Get profile from context
 
-  if (!projectsSection || !projectsSection.items || projectsSection.items.length === 0) {
-    return null; // Hide section if no projects data is available
+  if (!profile || !profile.projects || profile.projects.items.length === 0) {
+    return null; // Hide section if no projects data is available or profile is not loaded
   }
+
+  const projectsSection = profile.projects;
 
   return (
     <div className="max-w-7xl mx-auto">

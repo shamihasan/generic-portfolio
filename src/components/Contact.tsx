@@ -1,5 +1,7 @@
+"use client"; // Ensure this is a client component if it uses hooks
+
 import React from 'react';
-import { profile } from '../data/profile';
+import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
 
 // SVG Icons for social links
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -21,12 +23,14 @@ const EmailIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Contact() {
-  const contactData = profile.contact;
-  const personalInfo = profile.personalInfo;
+  const { profile } = useProfile(); // Get profile from context
 
-  if (!contactData) {
-    return null; // Hide section if no contact data is available
+  if (!profile || !profile.contact) {
+    return null; // Hide section if no contact data is available or profile is not loaded
   }
+
+  const contactData = profile.contact;
+  const personalInfo = profile.personalInfo; // Still need personalInfo for resumeLink
 
   const socialLinks = contactData.socialLinks || [];
 
