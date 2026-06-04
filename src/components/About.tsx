@@ -1,10 +1,16 @@
-import { aboutContent } from '@/data/portfolio.tsx'; // Updated import path
+import { profile } from '@/data/profile'; // Updated import path to profile
 
 export default function About() {
-  const { heading, intro, expertise, trackRecord, certificationSummary, highlights } = aboutContent;
+  const aboutData = profile.about;
+
+  if (!aboutData) {
+    return null; // Hide section if no about data is available in the profile
+  }
+
+  const { heading, intro, expertise, trackRecord, certificationSummary, highlights } = aboutData;
 
   return (
-    <div className="min-h-screen py-20 px-6 relative overflow-hidden">
+    <div className="min-h-screen px-6 relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-purple-900/20 to-slate-900" aria-hidden="true" />
       
@@ -22,39 +28,41 @@ export default function About() {
           {/* Left column - Professional introduction */}
           <div className="space-y-6">
             <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl hover:border-white/30 transition-all duration-300">
-              <p className="text-white/80 text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: intro }} />
-              <p className="text-white/70 mt-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: expertise }} />
-              <p className="text-white/70 mt-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: trackRecord }} />
-              <p className="text-white/70 mt-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: certificationSummary }} />
+              {intro && <p className="text-white/80 text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: intro }} />}
+              {expertise && <p className="text-white/70 mt-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: expertise }} />}
+              {trackRecord && <p className="text-white/70 mt-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: trackRecord }} />}
+              {certificationSummary && <p className="text-white/70 mt-4 leading-relaxed" dangerouslySetInnerHTML={{ __html: certificationSummary }} />}
             </div>
           </div>
 
           {/* Right column - Highlight cards */}
-          <div className="grid gap-4">
-            {highlights.map((item, index) => (
-              <div
-                key={index}
-                className="group backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-lg hover:bg-white/15 hover:border-white/30 hover:scale-[1.02] transition-all duration-300 cursor-default"
-                role="listitem"
-                aria-labelledby={`about-highlight-title-${index}`}
-                aria-describedby={`about-highlight-description-${index}`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-300 group-hover:bg-purple-500/30 group-hover:border-purple-500/50 transition-all duration-300" aria-hidden="true">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h3 id={`about-highlight-title-${index}`} className="text-white font-semibold text-lg mb-1">
-                      {item.title}
-                    </h3>
-                    <p id={`about-highlight-description-${index}`} className="text-white/60 text-sm">
-                      {item.description}
-                    </p>
+          {highlights && highlights.length > 0 && (
+            <div className="grid gap-4">
+              {highlights.map((item, index) => (
+                <div
+                  key={index}
+                  className="group backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-6 shadow-lg hover:bg-white/15 hover:border-white/30 hover:scale-[1.02] transition-all duration-300 cursor-default"
+                  role="listitem"
+                  aria-labelledby={`about-highlight-title-${index}`}
+                  aria-describedby={`about-highlight-description-${index}`}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-300 group-hover:bg-purple-500/30 group-hover:border-purple-500/50 transition-all duration-300" aria-hidden="true">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 id={`about-highlight-title-${index}`} className="text-white font-semibold text-lg mb-1">
+                        {item.title}
+                      </h3>
+                      <p id={`about-highlight-description-${index}`} className="text-white/60 text-sm">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

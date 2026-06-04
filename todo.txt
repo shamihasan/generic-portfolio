@@ -1,0 +1,8 @@
+export GEMINI_API_KEY="AQ.Ab8RN6I4xkvsl85UNc1tZbhITlhDWdwshYUPanHqfaNfah4d6g"; - mehrotrix
+export GEMINI_API_KEY="AIzaSyCovlMmGmGaP4E5LY_M8UMR7O-OkhOORic"; - 0896
+export GEMINI_API_KEY="AIzaSyA5qqcHuDuSRQrC-0ODmTo9svTf5RWyMG4"; - CF
+export GEMINI_API_KEY="AIzaSyCLpV5PswauLHBWIFDPRunwcwIJYxYmHVk"; // anupama
+export GEMINI_API_KEY="AIzaSyC53KZNdZruK23LiXWdSfSmVxMLcqCIR0g"; // r.m
+echo $GEMINI_API_KEY;
+python3 -m aider --model gemini/gemini-2.5-flash --map-tokens 1024 --no-auto-commits
+

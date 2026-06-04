@@ -1,55 +1,18 @@
 import React from 'react';
-
-interface ExperienceItem {
-  company: string;
-  role: string;
-  duration: string;
-  achievements: string[];
-  techStack: string[];
-}
-
-const experienceData: ExperienceItem[] = [
-  {
-    company: "New Relic",
-    role: "Senior Software Engineer",
-    duration: "Sep 2025 – Present",
-    achievements: [
-      "Led the development of a real-time analytics dashboard, enhancing data visualization capabilities by 30%.",
-      "Optimized critical backend services, reducing latency by 15% and significantly improving system reliability.",
-      "Mentored junior engineers, fostering best practices and promoting scalable architecture patterns."
-    ],
-    techStack: ["TypeScript", "React", "Node.js", "GraphQL", "AWS", "Kubernetes"]
-  },
-  {
-    company: "Encora Digital",
-    role: "Senior Software Engineer",
-    duration: "Sep 2021 – Sep 2025",
-    achievements: [
-      "Designed and implemented robust microservices for a high-traffic e-commerce platform.",
-      "Streamlined CI/CD pipelines, resulting in a 25% reduction in deployment time.",
-      "Collaborated effectively with cross-functional teams to deliver high-quality, impactful software solutions."
-    ],
-    techStack: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Docker", "Azure"]
-  },
-  {
-    company: "Webkul",
-    role: "Senior Full-Stack Engineer",
-    duration: "Feb 2018 – Sep 2021",
-    achievements: [
-      "Developed custom modules and extensions for leading e-commerce platforms including Magento and Shopify.",
-      "Contributed significantly to the architecture and successful launch of a SaaS product.",
-      "Implemented responsive and intuitive user interfaces using modern front-end frameworks, enhancing user engagement."
-    ]
-    ,
-    techStack: ["PHP", "Laravel", "Vue.js", "MySQL", "JavaScript", "HTML/CSS"]
-  },
-];
+import { profile } from '../data/profile';
+import { ExperienceItem } from '../types/profile'; // Import the interface from types
 
 export default function Experience() {
+  const experienceSection = profile.experience;
+
+  if (!experienceSection || !experienceSection.items || experienceSection.items.length === 0) {
+    return null; // Hide section if no experience data is available
+  }
+
   return (
     <div className="max-w-7xl mx-auto">
       <h2 className="text-4xl font-bold text-center mb-12 text-purple-400">
-        My Experience
+        {experienceSection.heading}
       </h2>
 
       <div className="relative">
@@ -60,7 +23,7 @@ export default function Experience() {
           aria-hidden="true" // Decorative element
         ></div>
 
-        {experienceData.map((item, index) => (
+        {experienceSection.items.map((item: ExperienceItem, index: number) => (
           <div
             key={index}
             className={`mb-8 flex flex-col md:grid md:grid-cols-[1fr_auto_1fr] items-center w-full`}
@@ -80,21 +43,25 @@ export default function Experience() {
                 <h3 id={`experience-company-${index}`} className="mb-2 font-bold text-xl text-purple-300">{item.company}</h3>
                 <p id={`experience-role-${index}`} className="text-lg font-semibold text-white mb-1">{item.role}</p>
                 <p className="text-sm text-gray-300 mb-4">{item.duration}</p>
-                <ul className="list-disc list-inside text-gray-200 mb-4" aria-label="Key achievements">
-                  {item.achievements.map((achievement, idx) => (
-                    <li key={idx} className="mb-1">{achievement}</li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-2 md:justify-end" aria-label="Technologies used">
-                  {item.techStack.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-block bg-purple-600/30 text-purple-200 text-xs px-3 py-1 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                {item.responsibilities && item.responsibilities.length > 0 && (
+                  <ul className="list-disc list-inside text-gray-200 mb-4" aria-label="Key responsibilities">
+                    {item.responsibilities.map((responsibility, idx) => (
+                      <li key={idx} className="mb-1">{responsibility}</li>
+                    ))}
+                  </ul>
+                )}
+                {item.techStack && item.techStack.length > 0 && (
+                  <div className="flex flex-wrap gap-2 md:justify-end" aria-label="Technologies used">
+                    {item.techStack.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-block bg-purple-600/30 text-purple-200 text-xs px-3 py-1 rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -118,21 +85,25 @@ export default function Experience() {
                 <h3 id={`experience-company-${index}`} className="mb-2 font-bold text-xl text-purple-300">{item.company}</h3>
                 <p id={`experience-role-${index}`} className="text-lg font-semibold text-white mb-1">{item.role}</p>
                 <p className="text-sm text-gray-300 mb-4">{item.duration}</p>
-                <ul className="list-disc list-inside text-gray-200 mb-4" aria-label="Key achievements">
-                  {item.achievements.map((achievement, idx) => (
-                    <li key={idx} className="mb-1">{achievement}</li>
-                  ))}
-                </ul>
-                <div className="flex flex-wrap gap-2 md:justify-start" aria-label="Technologies used">
-                  {item.techStack.map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-block bg-purple-600/30 text-purple-200 text-xs px-3 py-1 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                {item.responsibilities && item.responsibilities.length > 0 && (
+                  <ul className="list-disc list-inside text-gray-200 mb-4" aria-label="Key responsibilities">
+                    {item.responsibilities.map((responsibility, idx) => (
+                      <li key={idx} className="mb-1">{responsibility}</li>
+                    ))}
+                  </ul>
+                )}
+                {item.techStack && item.techStack.length > 0 && (
+                  <div className="flex flex-wrap gap-2 md:justify-start" aria-label="Technologies used">
+                    {item.techStack.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-block bg-purple-600/30 text-purple-200 text-xs px-3 py-1 rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>

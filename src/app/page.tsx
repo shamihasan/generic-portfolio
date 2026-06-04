@@ -13,9 +13,14 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen"; // Import the new LoadingScreen component
 import ScrollToTopButton from "@/components/ScrollToTopButton"; // Import the new ScrollToTopButton
 import SectionWrapper from "@/components/SectionWrapper"; // Import the new SectionWrapper
-import { navLinks } from "@/data/portfolio.tsx"; // Updated import path
+import { profile } from "@/data/profile"; // Updated import path
 
 export default function Home() {
+  const navLinks = profile.navLinks;
+  if (!navLinks) {
+    return null;
+  }
+
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("hero"); // State for active section
 
@@ -41,6 +46,7 @@ export default function Home() {
     }, observerOptions);
 
     // Observe all sections dynamically based on navLinks
+    // Ensure that the elements exist before observing
     const sections = navLinks.map(link => document.getElementById(link.id)).filter(Boolean) as Element[];
     sections.forEach((section) => observer.observe(section));
 
@@ -48,7 +54,7 @@ export default function Home() {
       clearTimeout(timer);
       sections.forEach((section) => observer.unobserve(section));
     };
-  }, []);
+  }, [navLinks]); // Added navLinks to dependency array to re-run if links change
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -56,9 +62,9 @@ export default function Home() {
 
   return (
     <main className="relative">
-      <Navbar activeSection={activeSection} />
+      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} /> {/* Pass setActiveSection */}
       {/* Render sections dynamically based on navLinks or explicitly if content is complex */}
-      <SectionWrapper id="hero" className="min-h-screen flex items-center justify-center">
+      <SectionWrapper id="hero" className="pt-16 min-h-screen flex items-center justify-center">
         <Hero />
       </SectionWrapper>
       <SectionWrapper id="about">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { profile } from '../data/profile';
 
 // SVG Icons for social links
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -20,13 +21,22 @@ const EmailIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Contact() {
+  const contactData = profile.contact;
+  const personalInfo = profile.personalInfo;
+
+  if (!contactData) {
+    return null; // Hide section if no contact data is available
+  }
+
+  const socialLinks = contactData.socialLinks || [];
+
   return (
     <div className="max-w-4xl mx-auto text-center">
       <h2 id="contact-heading" className="text-4xl font-bold mb-6 text-purple-400">
-        Let's Build Something Amazing
+        {contactData.heading}
       </h2>
       <p className="text-lg text-gray-300 mb-12">
-        I'm always open to new opportunities and collaborations. Whether you have a project in mind, a question, or just want to connect, feel free to reach out!
+        {contactData.description}
       </p>
 
       <div className="relative p-[1px] rounded-lg overflow-hidden group
@@ -41,63 +51,79 @@ export default function Contact() {
 
         {/* Glassmorphism card content */}
         <div className="relative bg-gray-900/80 backdrop-blur-md rounded-lg p-8 border border-white/20 group-hover:border-transparent flex flex-col items-center">
-          <p className="text-xl font-semibold text-white mb-4">
-            Hyderabad, India
-          </p>
+          {contactData.location && (
+            <p className="text-xl font-semibold text-white mb-4">
+              {contactData.location}
+            </p>
+          )}
 
-          <div className="flex space-x-6 mb-8">
-            <a
-              href="https://github.com/yourusername" // Replace with your GitHub URL
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
-              aria-label="GitHub Profile"
-              title="GitHub Profile"
-            >
-              <GitHubIcon className="w-8 h-8" />
-            </a>
-            <a
-              href="https://linkedin.com/in/yourusername" // Replace with your LinkedIn URL
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
-              aria-label="LinkedIn Profile"
-              title="LinkedIn Profile"
-            >
-              <LinkedInIcon className="w-8 h-8" />
-            </a>
-            <a
-              href="mailto:your.email@example.com" // Replace with your Email Address
-              className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
-              aria-label="Email Me"
-              title="Email Me"
-            >
-              <EmailIcon className="w-8 h-8" />
-            </a>
-          </div>
+          {(socialLinks.length > 0 || contactData.email) && (
+            <div className="flex space-x-6 mb-8">
+              {socialLinks.map((socialLink) => {
+                let IconComponent = null;
+                if (socialLink.name.toLowerCase() === "github") {
+                  IconComponent = GitHubIcon;
+                } else if (socialLink.name.toLowerCase() === "linkedin") {
+                  IconComponent = LinkedInIcon;
+                }
+                // Add more conditions for other social icons if needed
+
+                if (IconComponent) {
+                  return (
+                    <a
+                      key={socialLink.name}
+                      href={socialLink.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
+                      aria-label={socialLink.ariaLabel || `${socialLink.name} Profile`}
+                      title={`${socialLink.name} Profile`}
+                    >
+                      <IconComponent className="w-8 h-8" />
+                    </a>
+                  );
+                }
+                return null;
+              })}
+              {contactData.email && (
+                <a
+                  href={`mailto:${contactData.email}`}
+                  className="text-gray-300 hover:text-purple-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75 rounded-full p-1"
+                  aria-label="Email Me"
+                  title="Email Me"
+                >
+                  <EmailIcon className="w-8 h-8" />
+                </a>
+              )}
+            </div>
+          )}
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href="/resume/Shubham-Mehrotra-Resume.pdf" // Replace with the actual path to your resume PDF
-              download
-              className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-full shadow-lg
-                         hover:bg-purple-700 transition-all duration-300 ease-in-out
-                         transform hover:-translate-y-1 hover:scale-105 btn-glow
-                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
-              aria-label="Download Shubham Mehrotra's Resume"
-            >
-              Download Resume
-            </a>
-            <a
-              href="mailto:your.email@example.com" // Replace with your Email Address
-              className="px-8 py-3 bg-transparent border border-purple-500 text-purple-300 font-semibold rounded-full shadow-lg
-                         hover:bg-purple-500 hover:text-white transition-all duration-300 ease-in-out
-                         transform hover:-translate-y-1 hover:scale-105
-                         focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
-              aria-label="Get In Touch via Email"
-            >
-              Get In Touch
-            </a>
+            {personalInfo?.resumeLink && (
+              <a
+                href={personalInfo.resumeLink}
+                download
+                className="px-8 py-3 bg-purple-600 text-white font-semibold rounded-full shadow-lg
+                           hover:bg-purple-700 transition-all duration-300 ease-in-out
+                           transform hover:-translate-y-1 hover:scale-105 btn-glow
+                           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
+                aria-label={`Download ${personalInfo.name || 'My'} Resume`}
+              >
+                Download Resume
+              </a>
+            )}
+            {contactData.email && (
+              <a
+                href={`mailto:${contactData.email}`}
+                className="px-8 py-3 bg-transparent border border-purple-500 text-purple-300 font-semibold rounded-full shadow-lg
+                           hover:bg-purple-500 hover:text-white transition-all duration-300 ease-in-out
+                           transform hover:-translate-y-1 hover:scale-105
+                           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-75"
+                aria-label="Get In Touch via Email"
+              >
+                Get In Touch
+              </a>
+            )}
           </div>
         </div>
       </div>
