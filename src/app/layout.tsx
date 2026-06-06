@@ -41,8 +41,6 @@ export async function generateMetadata(): Promise<Metadata> {
   // Add the specific image from public/dp/himani.png
   const currentProfileDpPath = `${baseUrl}/dp/${currentProfileKey}.png`;
 
-  console.log({ currentProfileDpPath });
-
   // Combine all images for Open Graph and Twitter
   const allMetaImages = [
     {

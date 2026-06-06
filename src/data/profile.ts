@@ -1,10 +1,12 @@
 import { Profile } from '../types/profile';
 import { shubhamProfile } from './profiles/shubham';
 import { himaniProfile } from './profiles/himani';
+import { rakshitaProfile } from './profiles/rakshita';
 
 const profileMap: { [key: string]: Profile } = {
   shubham: shubhamProfile,
   himani: himaniProfile,
+  rakshita: rakshitaProfile,
   // Add future profiles here:
   // new_profile: newProfile,
 };

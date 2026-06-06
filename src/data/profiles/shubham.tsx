@@ -48,15 +48,16 @@ export const shubhamProfile: Profile = {
     description:
       "Senior Full-Stack Engineer with 8+ years of experience building high-performance applications across e-commerce, SaaS, logistics and cloud analytics domains.",
     resumeLink: "/resume/Shubham-Mehrotra-Resume.pdf",
-    profilePicture: "/images/shubham_profile.jpg",
+    profilePicture: "/dp/shubham.png",
   },
   navLinks: [
     { id: "hero", name: "Home", url: "#hero" },
     { id: "about", name: "About", url: "#about" },
-    { id: "projects", name: "Projects", url: "#projects" },
     { id: "experience", name: "Experience", url: "#experience" },
     { id: "skills", name: "Skills", url: "#skills" },
+    { id: "projects", name: "Projects", url: "#projects" },
     { id: "achievements", name: "Achievements", url: "#achievements" },
+    { id: "education", name: "Education", url: "#education" },
     { id: "contact", name: "Contact", url: "#contact" },
   ],
   socialLinks: [ // Updated with specific URLs from contact section, removed Twitter as no specific URL provided

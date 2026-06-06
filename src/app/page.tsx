@@ -15,6 +15,7 @@ import Footer from "@/components/Footer";
 import LoadingScreen from "@/components/LoadingScreen"; // Import the new LoadingScreen component
 import ScrollToTopButton from "@/components/ScrollToTopButton"; // Import the new ScrollToTopButton
 import SectionWrapper from "@/components/SectionWrapper"; // Import the new SectionWrapper
+import Education from "@/components/Education"; // Import the new Education component
 
 // HomeContent is a client component that consumes the ProfileContext
 function HomeContent() {
@@ -64,17 +65,20 @@ function HomeContent() {
       <SectionWrapper id="about">
         <About /> {/* No need to pass profile prop */}
       </SectionWrapper>
-      <SectionWrapper id="projects">
-        <Projects /> {/* No need to pass profile prop */}
-      </SectionWrapper>
       <SectionWrapper id="experience">
         <Experience /> {/* No need to pass profile prop */}
       </SectionWrapper>
       <SectionWrapper id="skills">
         <Skills /> {/* No need to pass profile prop */}
       </SectionWrapper>
+      <SectionWrapper id="projects">
+        <Projects /> {/* No need to pass profile prop */}
+      </SectionWrapper>
       <SectionWrapper id="achievements">
         <Achievements /> {/* No need to pass profile prop */}
+      </SectionWrapper>
+      <SectionWrapper id="education"> {/* Added Education Section */}
+        <Education />
       </SectionWrapper>
       <SectionWrapper id="contact">
         <Contact /> {/* No need to pass profile prop */}

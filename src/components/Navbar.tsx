@@ -1,12 +1,11 @@
-"use client"; // This component uses client-side features like useState and useEffect
+"use client";
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useProfile } from '@/context/ProfileContext'; // Import useProfile hook
-import React from 'react'; // Required for React.ReactNode types
-import { NavLink } from '@/types/profile'; // Import NavLink type
+import { useProfile } from '@/context/ProfileContext';
+import React from 'react';
+import { NavLink } from '@/types/profile';
 
-// SVG Icons for social links (extracted from original Navbar.tsx for reusability within this component)
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
     <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
@@ -20,109 +19,231 @@ const LinkedInIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 interface NavbarProps {
-  navLinks: NavLink[]; // navLinks are still passed as a prop from page.tsx
+  navLinks: NavLink[];
   activeSection: string;
   setActiveSection: (sectionId: string) => void;
 }
 
 export default function Navbar({ navLinks, activeSection, setActiveSection }: NavbarProps) {
-  const { profile } = useProfile(); // Get profile from context
+  const { profile } = useProfile();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!profile) {
-    return null; // Don't render navbar if profile is not loaded
-  }
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => { if (window.innerWidth >= 768) setMobileOpen(false); };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const personalInfo = profile.personalInfo;
-  const socialLinks = profile.socialLinks || [];
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
-  // Generate initials for the logo, fallback to "P" if name is not available
+  if (!profile) return null;
+
+  const { personalInfo, socialLinks = [] } = profile;
+
   const logoInitials = personalInfo.name
     ? personalInfo.name.split(' ').map(n => n[0]).join('')
     : "P";
 
+  const iconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
+    github: GitHubIcon,
+    linkedin: LinkedInIcon,
+  };
+
+  const handleNavClick = (id: string) => {
+    setActiveSection(id);
+    setMobileOpen(false);
+  };
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 ease-in-out
-                  ${isScrolled ? "bg-gray-900/80 backdrop-blur-md shadow-lg border-b border-white/10" : "bg-transparent"}`}
-    >
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
-        {/* Logo / Name */}
-        <Link
-          href="#hero"
-          className="text-white font-bold text-2xl tracking-tight hover:text-purple-300 transition-colors duration-300"
-          aria-label={`${personalInfo.name} - Home`}
-          onClick={() => setActiveSection("hero")} // Update active section on logo click
-        >
-          {logoInitials}
-        </Link>
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 transition-all duration-300 ease-in-out
+          ${isScrolled
+            ? "bg-gray-900/90 backdrop-blur-md shadow-lg border-b border-white/10"
+            : "bg-transparent"
+          }`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
 
-        {/* Navigation Links */}
-        {navLinks.length > 0 && (
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.id} // Use link.id as key for uniqueness
-                href={link.url}
-                className={`relative text-white/80 hover:text-purple-300 transition-colors duration-300
-                            ${activeSection === link.id
-                                ? "text-purple-300 border-b-2 border-purple-500 pb-1" // Active styles: text color, bottom border, padding
-                                : ""
-                            }`}
-                aria-current={activeSection === link.id ? "page" : undefined}
-                onClick={() => setActiveSection(link.id)} // Update active section on link click
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
-        )}
+          {/* Logo */}
+          <Link
+            href="#hero"
+            onClick={() => handleNavClick("hero")}
+            aria-label={`${personalInfo.name} - Home`}
+            className="group flex items-center gap-2"
+          >
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform duration-300">
+              {logoInitials}
+            </div>
+            <span className="hidden sm:block text-white font-semibold text-lg tracking-tight group-hover:text-purple-300 transition-colors duration-300">
+              {personalInfo.name}
+            </span>
+          </Link>
 
-        {/* Social links */}
-        {socialLinks.length > 0 && (
-          <div className="flex items-center gap-4">
-            {socialLinks.map((socialLink) => {
-              let IconComponent = null;
-              if (socialLink.name.toLowerCase() === "github") {
-                IconComponent = GitHubIcon;
-              } else if (socialLink.name.toLowerCase() === "linkedin") {
-                IconComponent = LinkedInIcon;
-              }
-              // Add more conditions for other social icons if needed, e.g., TwitterIcon
+          {/* Desktop nav links */}
+          {navLinks.length > 0 && (
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <Link
+                    key={link.id}
+                    href={link.url}
+                    onClick={() => handleNavClick(link.id)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
+                      ${isActive
+                        ? 'text-white bg-purple-500/20 border border-purple-500/40'
+                        : 'text-white/70 hover:text-white hover:bg-white/10'
+                      }`}
+                  >
+                    {link.name}
+                    {/* Active dot indicator */}
+                    {isActive && (
+                      <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-purple-400" aria-hidden="true" />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
 
-              if (IconComponent) {
+          {/* Right side: socials + hamburger */}
+          <div className="flex items-center gap-3">
+
+            {/* Social links — desktop only */}
+            <div className="hidden md:flex items-center gap-2">
+              {socialLinks.map((link) => {
+                const Icon = iconMap[link.name.toLowerCase()];
+                if (!Icon) return null;
                 return (
                   <a
-                    key={socialLink.name}
-                    href={socialLink.url}
+                    key={link.name}
+                    href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-white/10 border border-white/10 text-white/80 hover:bg-white/20 hover:text-white hover:border-white/30 transition-all duration-300"
-                    aria-label={socialLink.ariaLabel || `${socialLink.name} Profile`}
-                    title={`${socialLink.name} Profile`}
+                    className="p-2 rounded-full bg-white/10 border border-white/10 text-white/80 hover:bg-purple-500/30 hover:text-white hover:border-purple-400/50 transition-all duration-300 hover:scale-110"
+                    aria-label={link.ariaLabel || `${link.name} Profile`}
+                    title={link.name}
                   >
-                    <IconComponent />
+                    <Icon />
                   </a>
                 );
-              }
-              return null; // Don't render if no matching icon component
+              })}
+            </div>
+
+            {/* Hamburger — mobile only */}
+            <button
+              className="md:hidden flex flex-col justify-center items-center w-9 h-9 rounded-full bg-white/10 border border-white/10 hover:bg-white/20 transition-all duration-300 gap-1.5 p-2"
+              onClick={() => setMobileOpen(prev => !prev)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+            >
+              <span className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+              <span className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
+              <span className={`block h-0.5 w-5 bg-white rounded-full transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile menu overlay */}
+      <div
+        className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          onClick={() => setMobileOpen(false)}
+          aria-hidden="true"
+        />
+
+        {/* Drawer */}
+        <div className={`absolute top-0 right-0 h-full w-72 bg-gray-900/95 backdrop-blur-xl border-l border-white/10 shadow-2xl transition-transform duration-300 flex flex-col ${
+          mobileOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+
+          {/* Drawer header */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xs">
+                {logoInitials}
+              </div>
+              <span className="text-white font-semibold">{personalInfo.name}</span>
+            </div>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="p-1.5 rounded-full bg-white/10 text-white/70 hover:bg-white/20 hover:text-white transition-all duration-200"
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Nav links */}
+          <div className="flex flex-col gap-1 px-4 py-6 flex-grow">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <Link
+                  key={link.id}
+                  href={link.url}
+                  onClick={() => handleNavClick(link.id)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
+                    ${isActive
+                      ? 'bg-purple-500/20 text-white border border-purple-500/40'
+                      : 'text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                >
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-purple-400 flex-shrink-0" aria-hidden="true" />}
+                  {link.name}
+                </Link>
+              );
             })}
           </div>
-        )}
+
+          {/* Social links in drawer */}
+          {socialLinks.length > 0 && (
+            <div className="px-6 py-5 border-t border-white/10">
+              <p className="text-xs text-gray-500 mb-3 uppercase tracking-wider">Connect</p>
+              <div className="flex gap-3">
+                {socialLinks.map((link) => {
+                  const Icon = iconMap[link.name.toLowerCase()];
+                  if (!Icon) return null;
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 rounded-full bg-white/10 border border-white/10 text-white/80 hover:bg-purple-500/30 hover:text-white hover:border-purple-400/50 transition-all duration-300"
+                      aria-label={link.ariaLabel || `${link.name} Profile`}
+                    >
+                      <Icon />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </nav>
+    </>
   );
 }

@@ -184,7 +184,7 @@ export interface CertificationsSection {
 export interface EducationItem {
   institution: string;
   degree: string; // e.g., "Bachelor of Science"
-  fieldOfStudy: string; // e.g., "Computer Science"
+  fieldOfStudy?: string; // e.g., "Computer Science"
   duration: string; // e.g., "2016 - 2020"
   location?: string;
   gpa?: string; // Grade Point Average

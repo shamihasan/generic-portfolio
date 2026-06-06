@@ -8,78 +8,67 @@ const LinkedInIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-// Placeholder for Dribbble Icon (if not already defined elsewhere)
-const DribbbleIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg {...props} className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm9.006 13.006c-.002 4.41-3.588 7.994-8.006 7.994-4.418 0-8.004-3.584-8.006-7.994-.002-4.41 3.588-7.994 8.006-7.994 4.418 0 8.004 3.584 8.006 7.994zM12 2.006c-5.514 0-9.994 4.48-9.994 9.994 0 5.514 4.48 9.994 9.994 9.994 5.514 0 9.994-4.48 9.994-9.994 0-5.514-4.48-9.994-9.994-9.994zm-1.006 10.994c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm6 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z" />
-  </svg>
-);
-
-// Placeholder for Behance Icon
-const BehanceIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg {...props} className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.006 16.006c-.002 4.41-3.588 7.994-8.006 7.994-4.418 0-8.004-3.584-8.006-7.994-.002-4.41 3.588-7.994 8.006-7.994 4.418 0 8.004 3.584 8.006 7.994zM12 2.006c-5.514 0-9.994 4.48-9.994 9.994 0 5.514 4.48 9.994 9.994 9.994 5.514 0 9.994-4.48 9.994-9.994 0-5.514-4.48-9.994-9.994-9.994zm-1.006 10.994c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm6 0c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z" />
-  </svg>
-);
-
 
 export const himaniProfile: Profile = {
   personalInfo: {
     name: "Himani Mehrotra",
-    title: "Assistant Manager - Finance",
+    title: "Assistant Finance Manager",
     tagline:
       "Finance professional specializing in revenue management, MIS reporting, taxation, and financial compliance.",
     description:
-      "Results-driven finance professional with 5+ years of experience in MIS Reporting, Revenue Management, GST, TDS Compliance, Financial Reporting, and ERP systems including Tally, Zoho, Sage and SAP.",
+      "Results-driven finance professional with 5+ years of progressive experience in Accounts Receivable, GST & TDS Compliance, Reconciliations, MIS Reporting, and month-end accounting activities. Skilled in ERP systems including Sage, Tally ERP, Tally Prime, and Chargebee.",
     resumeLink: "/resume/Himani-Mehrotra-Resume.pdf",
-    profilePicture: "/images/himani_profile.jpg",
+    profilePicture: "/dp/himani.png",
   },
   navLinks: [
     { id: "hero", name: "Home", url: "#hero" },
     { id: "about", name: "About", url: "#about" },
-    { id: "projects", name: "Portfolio", url: "#projects" },
     { id: "experience", name: "Experience", url: "#experience" },
     { id: "skills", name: "Skills", url: "#skills" },
+    { id: "projects", name: "Portfolio", url: "#projects" },
     { id: "achievements", name: "Achievements", url: "#achievements" },
+    { id: "education", name: "Education", url: "#education" },
     { id: "contact", name: "Contact", url: "#contact" },
   ],
   socialLinks: [
     {
       name: "LinkedIn",
-      url: "https://www.linkedin.com/in/himani-mehrotra-a436a7256/",
+      url: "https://www.linkedin.com/in/himani-mehrotra-a436a7256",
       icon: <LinkedInIcon />,
       ariaLabel: "LinkedIn profile",
     },
   ],
   hero: {
-    heading: "Assistant Manager - Finance",
+    heading: "Assistant Finance Manager",
     subheading:
       "Driving financial accuracy, compliance, and business growth through data-driven decision making.",
     callToAction: {
       text: "View Experience",
       url: "#experience",
     },
-    image: "/images/hero_himani.jpg",
+    image: "/dp/himani.png",
     techStackBadges: [
       "SAP FICO",
+      "S/4HANA",
       "Tally Prime",
-      "Zoho",
-      "Sage",
-      "GST",
+      "Tally ERP",
+      "Sage ERP",
+      "Chargebee",
+      "Power BI",
       "Advanced Excel",
     ],
     resumeButtonText: "Download Resume",
   },
   about: {
     heading: "About Himani",
-    intro: "Hi, I'm Himani! My journey in design and development is driven by a desire to solve real-world problems with elegant and functional solutions. I believe good design is invisible, and great design is empowering.",
-    expertise: "My expertise lies in the full design process, from user research and wireframing to prototyping and high-fidelity UI design. I'm also skilled in translating designs into responsive web interfaces using React and modern CSS frameworks.",
-    trackRecord: "I've successfully delivered intuitive designs for mobile apps, web platforms, and enterprise software, consistently focusing on user satisfaction and business goals.",
-    certificationSummary: "Certified in Google UX Design and proficient in design tools like Figma, Adobe XD, and Sketch.",
+    intro: "Hi, I'm Himani! I am a Finance and Accounts professional with over 5 years of progressive experience handling critical financial operations, compliance framework tracking, and advanced reporting systems.",
+    expertise: "My expertise lies in managing SaaS-based finance operations, executing complex revenue and payment gateway reconciliations, and overseeing robust end-to-end tax compliances. I have a strong foundation in modern ERP workflows and advanced financial analytics tools.",
+    trackRecord: "I have successfully managed month-end closing activities, coordinated seamless statutory and internal audits, and streamlined accounts receivable systems for operational efficiency.",
+    certificationSummary: "Certified in SAP FICO & S/4HANA by Henry Harvin Education, Advanced Excel, and hold a Diploma in Financial Accounting.",
     highlights: [
-      { icon: <span>✨</span>, title: "User-Centric", description: "Always prioritizing the user's needs and experience." },
-      { icon: <span>🎨</span>, title: "Visual Storyteller", description: "Communicating ideas effectively through visual design." },
-      { icon: <span>💡</span>, title: "Innovative Thinker", description: "Bringing fresh perspectives and creative solutions." },
+      { icon: <span>✨</span>, title: "Compliance-Driven", description: "Ensuring zero-penalty and timely GST and TDS filings across multiple financial periods." },
+      { icon: <span>📊</span>, title: "Analytical Approach", description: "Utilizing Advanced Excel and Power BI for deep financial, revenue, and management MIS reporting." },
+      { icon: <span>💡</span>, title: "Process Streamliner", description: "Optimizing collection follow-ups, payment gateways, and training incoming finance team members." },
     ],
   },
   skills: {
@@ -88,33 +77,43 @@ export const himaniProfile: Profile = {
       {
         name: "Finance & Compliance",
         skills: [
-          { name: "GST Compliance" },
-          { name: "TDS Compliance" },
-          { name: "Income Tax" },
-          { name: "Revenue Management" },
-          { name: "Audit Coordination" },
+          { name: "GST Compliance (GSTR-1, 2B, 3B, 9)" },
+          { name: "E-Invoicing" },
+          { name: "TDS Compliance (Sec 194A, 192, 194C, 194H, 194I, 194J, 194Q)" },
+          { name: "TCS" },
+          { name: "Audit Coordination & Documentation" },
         ],
       },
       {
         name: "Reporting & Analysis",
         skills: [
           { name: "MIS Reporting" },
-          { name: "Financial Analysis" },
-          { name: "Financial Statements" },
-          { name: "Variance Analysis" },
-          { name: "Forecasting" },
+          { name: "Management Reporting" },
+          { name: "Product P&L" },
+          { name: "Aging Analysis" },
+          { name: "Revenue & Expense Reports" },
         ],
       },
       {
         name: "ERP & Tools",
         skills: [
-          { name: "SAP FICO" },
-          { name: "Tally Prime" },
-          { name: "Zoho" },
-          { name: "Sage" },
-          { name: "Advanced Excel" },
+          { name: "Sage ERP" },
+          { name: "Tally Prime & Tally ERP" },
+          { name: "Chargebee" },
+          { name: "Power BI" },
+          { name: "Advanced Excel (Pivot, VLOOKUP, HLOOKUP, SUMIF)" },
         ],
       },
+      {
+        name: "Operations & Payment Gateways",
+        skills: [
+          { name: "Accounts Receivable (AR)" },
+          { name: "Accounts Payable (AP)" },
+          { name: "Deferred Revenue Tracking" },
+          { name: "GL & Bank Reconciliation" },
+          { name: "Stripe, PayPal, PayU Systems" }
+        ]
+      }
     ],
   },
   experience: {
@@ -122,8 +121,8 @@ export const himaniProfile: Profile = {
     items: [
       {
         company: "Threecolts India Private Limited",
-        role: "Assistant Manager - Finance",
-        duration: "Sep 2024 – Present",
+        role: "Assistant Finance Manager",
+        duration: "Sep 2024 – Apr 2026",
       },
       {
         company: "Cedcoss Technology Private Limited",
@@ -132,36 +131,34 @@ export const himaniProfile: Profile = {
       },
       {
         company: "M/s True Partner Business Consultant",
-        role: "Finance Intern",
-        duration: "Jun 2019 – Mar 2020",
+        role: "Account & Finance Trainee",
+        duration: "Jan 2020 – Mar 2021",
       },
     ],
   },
   projects: {
-    heading: "Selected Design Portfolio",
+    heading: "Key Finance Frameworks Managed",
     items: [
       {
-        title: "Mobile Banking App Redesign",
-        description: "A complete redesign of a banking application, focusing on simplifying complex financial tasks and improving user trust through intuitive UI.",
-        techStack: ["Figma", "User Research", "Prototyping", "Design System"],
-        liveLink: "https://dribbble.com/shots/banking-app-redesign",
-        category: "UI/UX Design",
-        features: ["Simplified navigation", "Personalized dashboards", "Secure transaction flows", "Dark mode support"],
+        title: "SaaS Subscription Billing & AR Architecture",
+        description: "Managed Accounts Receivable activities including billing schemas, automated invoice creation, and aging analysis for international sales streams.",
+        techStack: ["Chargebee", "Sage ERP", "Advanced Excel"],
+        category: "Revenue Operations",
+        features: ["SaaS subscription billing tracking", "Deferred revenue management", "Revenue sheet structures", "Customer dispute handling"],
       },
       {
-        title: "E-learning Platform UI Kit",
-        description: "Developed a comprehensive UI kit for an e-learning platform, ensuring consistency and scalability across various course modules and user roles.",
-        techStack: ["Figma", "Design System", "Component Library", "Atomic Design"],
-        liveLink: "https://behance.net/gallery/elearning-ui-kit",
-        category: "UI Design",
-        features: ["Reusable components", "Style guide", "Accessibility considerations", "Interactive elements"],
+        title: "Cross-Border Payment Gateway Reconciliation System",
+        description: "Formulated robust routines to securely process and map client collections across global clearing and transactional gateways.",
+        techStack: ["PayPal", "Stripe", "PayU", "Bank Transfers"],
+        category: "Financial Control",
+        features: ["Payment confirmation tracking", "Multi-currency bank settlement", "Discrepancy rectification", "Month-end accounting logs"],
       },
       {
-        title: "Healthcare Dashboard Concept",
-        description: "A conceptual design for a healthcare provider dashboard, aiming to visualize patient data and administrative tasks efficiently.",
-        techStack: ["Adobe XD", "Data Visualization", "Wireframing", "User Flows"],
-        category: "UX Design",
-        features: ["Patient overview", "Appointment management", "Analytics charts", "Secure data access"],
+        title: "Corporate Indirect & Direct Tax Compliance Matrix",
+        description: "Directed processing modules for multi-tiered direct and indirect statutory tax laws to ensure timely institutional submissions.",
+        techStack: ["GST Portals", "Tally Prime", "Sage ERP", "Government Utilities"],
+        category: "Taxation & Compliance",
+        features: ["GSTR-1, 2B, 3B, and annual GSTR-9 filings", "E-invoicing validation", "TDS calculations across 7+ chapters", "TCS structural calculations"],
       },
     ],
   },
@@ -170,23 +167,23 @@ export const himaniProfile: Profile = {
     items: [
       {
         icon: "🏆",
-        title: "Chargebee Integration",
+        title: "Zero-Penalty Statutory Compliance",
         description: [
-          "Integrated Chargebee with Sage Accounting Software, automating invoice generation and reconciliation."
+          "Ensured 100% accurate GST and TDS compliance within strict reporting timelines across consecutive filing periods."
         ],
       },
       {
         icon: "⚡",
-        title: "20% Faster Month-End Closing",
+        title: "Optimized Accounts Receivable",
         description: [
-          "Reduced month-end financial closing time by 20% through process optimization and automation."
+          "Significantly improved Accounts Receivable tracking, aging visibility, and payment follow-up processes."
         ],
       },
       {
         icon: "✅",
-        title: "Audit Excellence",
+        title: "Audit Excellence & Training Leadership",
         description: [
-          "Successfully coordinated statutory and internal audits with no major non-compliance issues."
+          "Coordinated seamlessly with statutory and internal auditors to rectify ledger discrepancies, while leading process training for new team members."
         ],
       },
     ],
@@ -195,8 +192,8 @@ export const himaniProfile: Profile = {
     heading: "Certifications",
     items: [
       {
-        name: "SAP FICO & HANA",
-        issuer: "Henry Harvin",
+        name: "SAP FICO & S/4HANA",
+        issuer: "Henry Harvin Education",
         dateIssued: "",
       },
       {
@@ -205,7 +202,7 @@ export const himaniProfile: Profile = {
         dateIssued: "",
       },
       {
-        name: "Diploma in Financial Accounting (Tally ERP)",
+        name: "Diploma in Financial Accounting – Tally ERP",
         issuer: "National Development Foundation",
         dateIssued: "",
       },
@@ -216,17 +213,15 @@ export const himaniProfile: Profile = {
     items: [
       {
         institution: "University of Lucknow",
-        degree: "Master of Commerce",
-        fieldOfStudy: "Commerce",
-        duration: "2016 - 2018",
-        location: "Lucknow, India",
+        degree: "Bachelor of Commerce (B.Com)",
+        duration: "2013 – 2016",
+        location: "Lucknow, Uttar Pradesh, India",
       },
       {
         institution: "University of Lucknow",
-        degree: "Bachelor of Commerce",
-        fieldOfStudy: "Commerce",
-        duration: "2013 - 2016",
-        location: "Lucknow, India",
+        degree: "Master of Commerce (M.Com)",
+        duration: "2016 – 2018",
+        location: "Lucknow, Uttar Pradesh, India",
       },
     ],
   },
@@ -236,6 +231,6 @@ export const himaniProfile: Profile = {
       "Open to finance, accounting, reporting, taxation, and compliance opportunities.",
     email: "himanimehrotra959@gmail.com",
     phone: "7843979800",
-    location: "Lucknow / Delhi, India",
+    location: "Lucknow, Uttar Pradesh",
   },
 };
